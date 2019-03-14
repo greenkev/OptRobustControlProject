@@ -9,6 +9,7 @@ function dy = twoLinkArmDynamics(t,y,p,arg_2)
 %   controller function that takes (t,y,p)
 
     checkInputs(t,y,p);
+    
     dy = zeros(size(y));
     
     if ~exist('arg_2','var')
