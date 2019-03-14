@@ -1,6 +1,7 @@
 classdef twoLinkArmAnimation < handle
-    %UNTITLED2 Summary of this class goes here
-    %   Detailed explanation goes here
+    %TWOLINKARMANIMATION This class encapsulates a nice animation of the
+    %arm
+    %   
     
     properties
         bodyPoints;     %For Patch Objects
@@ -13,7 +14,7 @@ classdef twoLinkArmAnimation < handle
         linkEdgeColor = [0,0,0];
         linkFaceColor = 0.6*[1,1,1];
         jointFaceColor = 0.4*[1,1,1];
-        jointRadius = 0.01; %m
+        jointRadius = 0.02; %m
         
         vidObj;
         vidOpen;
@@ -30,7 +31,7 @@ classdef twoLinkArmAnimation < handle
             obj.fig = figure;
             obj.ax = axes('parent',obj.fig);
             axis equal;   
-            axis([-3,3,-3,3]);      
+            axis([-1,2.5,-0.5,2.5]);      
             
             obj = setupPatches(obj,true);
             obj = setupPose(obj,[0,0]);
@@ -39,6 +40,7 @@ classdef twoLinkArmAnimation < handle
             obj.vidRes = [1080,1080];
             
             obj.fig.Position = [1964,110,obj.vidRes(1:2)];
+            grid on
             drawnow();
         end
         
@@ -119,19 +121,22 @@ classdef twoLinkArmAnimation < handle
             [x_out,y_out] = capsule(obj,0.05,[1,0]);
             obj.patches(3) = patch(  x_out,y_out,obj.linkFaceColor,'EdgeColor',obj.linkEdgeColor,...
                                     'Parent',obj.jointT(2));
+                                
+            %Tennis Racket
             [x_out,y_out] = capsule(obj,0.05,[0,0.8]);
             x_out = x_out + 1;
             obj.patches(4) = patch(  x_out,y_out,obj.linkFaceColor,'EdgeColor',obj.linkEdgeColor,...
                                     'Parent',obj.jointT(2));
                                 
-                                
+            %Center of Mass of Link 2                    
             obj.staticT(3) = hgtransform('Parent',obj.jointT(2));
                                                      
             [x_out,y_out] = capsule(obj,0.05,[0,0]);
             x_out = x_out + obj.p.lce;
             obj.patches(5) = patch(  x_out,y_out,obj.linkFaceColor,'EdgeColor',obj.linkEdgeColor,...
                                     'Parent',obj.staticT(3));
-                                
+                
+            %Joint circles
             for i = 1:2
                 obj.patches(end+1) = patch( obj.jointRadius*sin(0:0.3:2*pi), obj.jointRadius*cos(0:0.3:2*pi),...
                 obj.jointFaceColor,...
