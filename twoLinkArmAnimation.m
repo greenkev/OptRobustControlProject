@@ -66,6 +66,46 @@ classdef twoLinkArmAnimation < handle
             updatePose(obj,qpos);
             drawnow();
         end
+        
+        function obj = animateTraj(obj,qpos,titleText)
+                                   
+            title(titleText,'FontSize',22);
+            
+            if size(qpos,2) < size(qpos,1)
+               qpos = qpos'; 
+            end
+            
+            N = size(qpos,2);
+            
+            for i = 1:N 
+                obj.setPose(qpos(:,i));
+                
+                if obj.vidOpen == true                    
+                    obj.fig.Position = [obj.fig.Position(1:2),obj.vidRes(1:2)];
+                    frame = getframe(obj.fig);
+                    writeVideo(obj.vidObj,frame);
+                else
+                    pause(0.01);
+                end
+            end
+        end
+        
+        function obj = startVideo(obj,filename)
+            if obj.vidOpen == false                
+                obj.fig.Position = [obj.fig.Position(1:2),obj.vidRes(1:2)];
+                obj.vidObj = VideoWriter(filename,'Motion JPEG AVI');
+                open(obj.vidObj);
+                obj.vidOpen = true;
+            end
+        end
+        
+        function obj = endVideo(obj)
+            if obj.vidOpen == true
+                close(obj.vidObj);
+                obj.vidOpen = false;
+            end
+        end
+        
     end
     
     methods (Access = private)

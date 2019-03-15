@@ -69,8 +69,8 @@ function checkInputs(t,y,p)
              num2str(size(t)),']']);
     end
     
-    if sum(size(y) ~= [1,4])
-       error(['y is the wrong size, expected [1 4] size was [',...
+    if sum(size(y) ~= [4,1])
+       error(['y is the wrong size, expected [4 1] size was [',...
              num2str(size(y)),']']);
     end
 end
