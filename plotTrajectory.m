@@ -1,4 +1,4 @@
-function fig = plotTrajectory(t,y,n,ctrl)
+function [fig,u] = plotTrajectory(t,y,n,ctrl)
 
 if ~exist('n','var')
    n = 3; 
