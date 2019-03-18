@@ -39,7 +39,7 @@ classdef twoLinkArmAnimation < handle
             obj.vidOpen = false;
             obj.vidRes = [1080,1080];
             
-            obj.fig.Position = [1964,110,obj.vidRes(1:2)];
+            % obj.fig.Position = [1964,110,obj.vidRes(1:2)];
             grid on
             drawnow();
         end

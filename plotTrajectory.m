@@ -8,7 +8,7 @@ if ~exist('ctrl','var')
    u = zeros(2,length(t)); 
 elseif isa(ctrl,'function_handle')
     for i = 1:length(t)
-       u(:,i) = ctrl(t(i),y(:,i))       
+       u(:,i) = ctrl(t(i),y(i,:)');  
     end
 else
    u = ctrl; 
